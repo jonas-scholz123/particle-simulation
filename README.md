@@ -1,6 +1,9 @@
+
 # Particle Simulation
 
 This is a simulation of n particles in a 3D box. In this version it is reduced to a 2D simulation (by fixing z coordinates and setting z-velocity = 0) to animate it.
+
+![](particles.gif)
 
 ## Usage:
 
@@ -18,7 +21,7 @@ Tested only on ubuntu 18.04.
 
 ## Implementation
 
-Collisions are calculated and stored in a priority queue, 
+Collisions are calculated and stored in a priority queue,
 after initially calculating all particle-particle and particle-wall collisions,
 only the particles involved in a collision need to be re-evaluated, as all other particles will continue in a straight line.
 
