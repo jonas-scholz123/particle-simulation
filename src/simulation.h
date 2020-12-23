@@ -1,8 +1,8 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "Environment.h"
-#include "Particle.h"
+#include "environment.h"
+#include "particle.h"
 
 int main();
 

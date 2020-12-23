@@ -1,5 +1,5 @@
 #include "ascii.h"
-#include "Particle.h"
+#include "particle.h"
 #include <iostream>
 
 #include <cmath>

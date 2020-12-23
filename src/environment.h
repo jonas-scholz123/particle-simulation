@@ -9,7 +9,7 @@
 #include <map>
 
 #include <curses.h>
-#include "Particle.h"
+#include "particle.h"
 #include "ascii.h"
 
 class Collision {
@@ -41,7 +41,7 @@ bool operator<(const Collision& lhs, const Collision& rhs);
 class Environment {
 public:
   typedef std::tuple<double, int, int> myCol;
-  Environment (int, double, double, double);
+  Environment (int, double, double, double, double, double, double, bool);
 
   void run(int);
 private:

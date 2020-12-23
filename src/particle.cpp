@@ -1,4 +1,4 @@
-#include "Particle.h"
+#include "particle.h"
 #include <iostream>
 
 Particle::Particle (int id, vec3 pos, vec3 vel, double m, double r) :

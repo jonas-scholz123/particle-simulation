@@ -4,7 +4,7 @@
 #include <vector>
 #include <utility>
 
-#include "Particle.h"
+#include "particle.h"
 
 class Canvas {
 public:

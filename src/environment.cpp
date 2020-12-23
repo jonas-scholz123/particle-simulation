@@ -1,4 +1,4 @@
-#include "Environment.h"
+#include "environment.h"
 #include <iostream>
 #include <algorithm>
 #include <random>
@@ -32,12 +32,13 @@ bool operator< (const Collision& lhs, const Collision& rhs) {
   return lhs.t() > rhs.t(); //means priority_queue is ascending
 }
 
-Environment::Environment (int n_part, double max_x, double max_y, double max_z):
+Environment::Environment (int n_part, double max_x, double max_y, double max_z,
+   double max_vel, double r, double m, bool ascii):
   max_x {max_x},
   max_y {max_y},
   max_z {max_z},
-  max_vel {50},
-  n_part {0},
+  max_vel {max_vel},
+  n_part {n_part},
   time {0},
   n_cols(n_part, 0),
   t_frame {0.01},
@@ -63,7 +64,6 @@ void Environment::run(int T) {
 
 void Environment::add_particle(int id, vec3 pos, vec3 vel){
   particles.push_back(Particle(id, pos, vel, m, r));
-  ++n_part;
 }
 
 void Environment::add_random_particle(int id){
