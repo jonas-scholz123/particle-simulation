@@ -1,9 +1,10 @@
-#include "ascii.h"
-#include "particle.h"
 #include <iostream>
-
+#include <utility>
 #include <cmath>
+
 #include "curses.h"
+
+#include "ascii.h"
 
 Canvas::Canvas(double max_x, double max_y) :
   max_x {max_x},

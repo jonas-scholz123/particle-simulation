@@ -2,8 +2,6 @@
 #define ASCII_H
 
 #include <vector>
-#include <utility>
-
 #include "particle.h"
 
 class Canvas {

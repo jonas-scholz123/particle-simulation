@@ -1,14 +1,5 @@
 #include <iostream>
-#include <random>
-#include <queue>
-
-using namespace std;
-
-#include "environment.h"
-#include "particle.h"
-#include "curses.h"
-
-
+#include "simulation.h"
 
 int main() {
 
@@ -35,7 +26,7 @@ int main() {
   //cout << "running simulation: " << "\n";
 
   env.run(n_seconds);
-  cout << "successfully completed!" <<"\n";
+  std::cout << "successfully completed!" <<"\n";
   //cout << "frac of vol occupied: " << nr_particles*4/(15.0*15.0*15.0) << "\n";
   return 1;
 }

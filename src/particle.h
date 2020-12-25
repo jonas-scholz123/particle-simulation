@@ -2,7 +2,6 @@
 #define PARTICLE_H
 
 #include "utils.h"
-#include <string>
 
 using namespace geom;
 
@@ -18,15 +17,15 @@ public:
 
 class Wall : public Collidable{
 public:
-  enum Direction { x, y, z };
+  enum Direction { x, y, z }; // absolute direction of normal vector
   Wall () = default;
-
   Wall(Direction dir);
-  vec3 n();
+
+  vec3 n() const;
   int id() const;
 
 private:
-  Direction dir_;
+  const Direction dir_;
   vec3 n_;
   int id_;
 };
@@ -43,20 +42,20 @@ public:
   bool is_wall() const;
   void move(double);
   void validated_move(double, double, double, double);
-  bool in_bounds(vec3&, double, double, double);
+  bool in_bounds(vec3&, double, double, double) const;
 
   void collide(Particle&);
   void collide(Wall&);
   void set_vel(vec3);
   void set_pos(vec3);
-  vec3 n(Particle&);
+  vec3 n(Particle&) const;
 
 private:
   vec3 pos_;
   vec3 vel_;
-  int id_;
-  double m_;
-  double r_;
+  const int id_;
+  const double m_;
+  const double r_;
 };
 
 #endif

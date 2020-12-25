@@ -1,8 +1,7 @@
-#include "utils.h"
 #include <iostream>
-
 #include <cmath>
-#include "curses.h"
+
+#include "utils.h"
 
 using namespace geom;
 

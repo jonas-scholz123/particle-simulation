@@ -1,5 +1,4 @@
 #include "particle.h"
-#include <iostream>
 
 Particle::Particle (int id, vec3 pos, vec3 vel, double m, double r) :
   pos_ {pos},
@@ -36,7 +35,7 @@ void Particle::collide(Wall& w){
   vel_ -= 2 * norm_vel;
 }
 
-vec3 Particle::n(Particle& other){
+vec3 Particle::n(Particle& other) const {
   const vec3 dif = (this -> pos()) - (other.pos());
   return dif / dif.size();
 }
@@ -64,14 +63,14 @@ Wall::Wall (Direction dir) :
     }
   }
 
-vec3 Wall::n() {return n_;}
+vec3 Wall::n() const {return n_;}
 
 int Wall::id() const {return id_;}
 
 void Particle::move(double dt) {
   pos_ += dt* vel_;
 }
-bool Particle::in_bounds(vec3& pos, double max_x, double max_y, double max_z){
+bool Particle::in_bounds(vec3& pos, double max_x, double max_y, double max_z) const {
   return (pos.x() <= max_x - r_ && pos.x() >= r_
     && pos.y() <= max_y - r_ && pos.y() >= r_
     && pos.z() <= max_z -r_ && pos.z() >= r_);

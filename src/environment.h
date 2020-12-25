@@ -4,11 +4,8 @@
 #include <vector>
 #include <array>
 #include <random>
-#include <tuple>
 #include <queue>
-#include <map>
 
-#include <curses.h>
 #include "particle.h"
 #include "ascii.h"
 
@@ -46,15 +43,15 @@ public:
   void run(int);
 private:
 
-  double max_x, max_y, max_z;
-  double max_vel;
+  const double max_x, max_y, max_z;
+  const double max_vel;
   int n_part;
   double time;
   std::vector<int> n_cols;
-  double t_frame;
-  double r;
-  double m;
-  double post_collision_dt;
+  const double t_frame;
+  const double r;
+  const double m;
+  const double post_collision_dt;
   bool ascii;
   Canvas canvas;
   std::array<Wall, 3> walls;
@@ -73,7 +70,7 @@ private:
 
   void tick();
   void move(double);
-  double t2col(Particle&, Particle&);
+  double t2col(Particle&, Particle&) const;
   void update_collisions_involving(Particle&);
   void collide (Particle&, Particle&);
   void collide (Particle&, Wall&);

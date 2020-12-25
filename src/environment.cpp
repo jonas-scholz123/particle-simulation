@@ -1,9 +1,7 @@
 #include "environment.h"
-#include <iostream>
+
 #include <algorithm>
-#include <random>
-#include <string>
-#include <unistd.h>
+#include <unistd.h> //usleep() for animation
 
 Collision::Collision (double t0, double dt, Collidable& p1, Collidable& p2,
   int n_col_1, int n_col_2):
@@ -73,7 +71,7 @@ void Environment::add_random_particle(int id){
   Environment::add_particle(id, pos, vel);
 }
 
-vec3 Environment::get_random_pos(){
+vec3 Environment::get_random_pos() {
   double x = (max_x - 2*r) * dist(gen) + r;
   double y = (max_y - 2*r) * dist(gen) + r;
   double z = (max_z - 2*r) * dist(gen) + r;
@@ -82,7 +80,7 @@ vec3 Environment::get_random_pos(){
   return vec3(x, y, z);
 }
 
-vec3 Environment::get_random_vel(){
+vec3 Environment::get_random_vel() {
   double x = max_vel * dist(gen);
   double y = max_vel * dist(gen);
   //double z = max_vel * dist(gen);
@@ -126,7 +124,7 @@ void Environment::tick() {
       if (dt >= t_frame) {
         move(t_frame);
         canvas.print(particles); //prints the simulation in ascii style
-        usleep(t_frame*1000*1000);
+        usleep(t_frame*1000*1000); //sleep to have animation be slow enough
         return;
       }
     }
@@ -142,6 +140,7 @@ void Environment::tick() {
       collide(col_p1, col_p2);
     }
   }
+  //remove recent collision from queue
   collisions.pop();
 }
 
@@ -152,7 +151,7 @@ void Environment::move(double dt) {
   time += dt;
 }
 
-double Environment::t2col(Particle& p1, Particle& p2) {
+double Environment::t2col(Particle& p1, Particle& p2) const {
   vec3 x = p1.pos() - p2.pos();
   vec3 v = p1.vel() - p2.vel();
 
@@ -207,31 +206,31 @@ void Environment::collide(Particle& p, Wall& w) {
   update_collisions_involving(p);
 }
 
-void Environment::add_wall_collisions(Particle& p1) {
+void Environment::add_wall_collisions(Particle& p) {
 
   //get lowest collision time
   double t_x;
-  if (p1.vel().x() > 0){
-     t_x = (max_x - p1.r() - p1.pos().x())/p1.vel().x();
+  if (p.vel().x() > 0){
+     t_x = (max_x - p.r() - p.pos().x())/p.vel().x();
    }
   else {
-    t_x = -(p1.pos().x() - p1.r())/p1.vel().x();
+    t_x = -(p.pos().x() - p.r())/p.vel().x();
   }
 
   double t_y;
-  if (p1.vel().y() > 0){
-     t_y = (max_y - p1.r() - p1.pos().y())/p1.vel().y();
+  if (p.vel().y() > 0){
+     t_y = (max_y - p.r() - p.pos().y())/p.vel().y();
    }
   else {
-    t_y = -(p1.pos().y() - p1.r())/p1.vel().y();
+    t_y = -(p.pos().y() - p.r())/p.vel().y();
   }
 
   double t_z;
-  if (p1.vel().z() > 0){
-     t_z = (max_z - p1.r() - p1.pos().z())/p1.vel().z();
+  if (p.vel().z() > 0){
+     t_z = (max_z - p.r() - p.pos().z())/p.vel().z();
    }
   else {
-    t_z = -(p1.pos().z() - p1.r())/p1.vel().z();
+    t_z = -(p.pos().z() - p.r())/p.vel().z();
   }
 
   auto t_min = std::min({t_x, t_y, t_z});
@@ -239,13 +238,13 @@ void Environment::add_wall_collisions(Particle& p1) {
   Collision col;
   // add collision event
   if (t_min==t_x) {
-    col = Collision(time, t_x, p1, walls[0], n_cols[p1.id()], -1);
+    col = Collision(time, t_x, p, walls[0], n_cols[p.id()], -1);
   }
   else if (t_min==t_y) {
-    col = Collision(time, t_y, p1, walls[1], n_cols[p1.id()], -1);
+    col = Collision(time, t_y, p, walls[1], n_cols[p.id()], -1);
   }
   else {
-    col = Collision(time, t_z, p1, walls[2], n_cols[p1.id()], -1);
+    col = Collision(time, t_z, p, walls[2], n_cols[p.id()], -1);
   }
   collisions.push(col);
 }
